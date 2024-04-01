@@ -18,7 +18,7 @@ int main(void) {
   int new_socket;
   int val = 1;
 
-  struct sockaddr_in addr = {};
+  struct sockaddr_in addr;
   socklen_t addrlen = sizeof(addr);
 
   int fd = socket(AF_INET, SOCK_STREAM, 0);
