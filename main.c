@@ -15,11 +15,9 @@ void die(const char *message) {
 int main(void) {
   printf("\nServer Up\n");
 
-  int new_socket, valread;
+  int new_socket;
   int val = 1;
 
-  char buffer[1024] = {0};
-  char *hello = "Hello from Server";
   struct sockaddr_in addr = {};
   socklen_t addrlen = sizeof(addr);
 
@@ -45,12 +43,14 @@ int main(void) {
 
   new_socket = accept(fd, (struct sockaddr *)&addr, &addrlen);
 
-  if (new_socket) {
+  if (new_socket == -1) {
     die("accept()");
   }
 
-  valread =
-      read(new_socket, buffer, 1024 - 1); // minus one for the null terminator
+  char buffer[1024];
+  char *hello = "HTTP/1.1 200 OK\r\n\r\n";
+
+  int r = read(new_socket, buffer, 1024 - 1); // minus one for the null terminator
 
   printf("%s\n", buffer);
   send(new_socket, hello, strlen(hello), 0);
