@@ -13,7 +13,7 @@ void die(const char *message) {
 }
 
 int main(void) {
-  printf("\nServer Up\n");
+  printf("Server Up\n");
 
   int new_socket;
   int val = 1;
@@ -48,15 +48,13 @@ int main(void) {
   }
 
   char buffer[1024];
-  char *hello = "HTTP/1.1 200 OK\r\n\r\n";
+  char *response = "HTTP/1.1 200 OK\r\n\r\n";
 
   int r = read(new_socket, buffer, 1024 - 1); // minus one for the null terminator
 
   printf("%s\n", buffer);
-  send(new_socket, hello, strlen(hello), 0);
-  printf("Hello message sent\n");
+  send(new_socket, response, strlen(response), 0);
 
-  close(new_socket);
   close(fd);
 
   return 0;
